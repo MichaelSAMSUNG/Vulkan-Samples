@@ -24,7 +24,8 @@
 #include "common/error.h"
 
 VKBP_DISABLE_WARNINGS()
-#include <glm/glm.hpp>
+#include "common/glm_common.h"
+#include <glm/gtc/matrix_transform.hpp>
 VKBP_ENABLE_WARNINGS()
 
 #include "buffer_pool.h"
@@ -240,7 +241,7 @@ Gui::Gui(VulkanSample &sample_, const float dpi_factor, const float font_size, b
 	shader_modules.push_back(&device.get_resource_cache().request_shader_module(VK_SHADER_STAGE_VERTEX_BIT, vert_shader, {}));
 	shader_modules.push_back(&device.get_resource_cache().request_shader_module(VK_SHADER_STAGE_FRAGMENT_BIT, frag_shader, {}));
 
-	pipeline_layout = &device.get_resource_cache().request_pipeline_layout(shader_modules);
+	pipeline_layout = &device.get_resource_cache().request_pipeline_layout(shader_modules, false);
 
 	sampler = std::make_unique<core::Sampler>(device, sampler_info);
 
